@@ -53,5 +53,3 @@ while True:
 
     print(Fore.YELLOW + "Start messaging with the bot (say quit to stop)!" + Style.RESET_ALL)
     time.sleep(5)
-
-# chat()
