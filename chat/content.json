@@ -27,6 +27,7 @@
             ],
             "responses": [
                 "Hello",
+                "Who the hell are you",
                 "Good to see you again",
                 "Hi there, how can I help?"
             ],
@@ -73,7 +74,9 @@
         },
         {
             "tag": "noanswer",
-            "patterns": [],
+            "patterns": [
+                ""
+            ],
             "responses": [
                 "Sorry, can't understand you",
                 "Please give me more info",
@@ -180,7 +183,7 @@
                 "who programmed you"
             ],
             "responses": [
-                "I was made by Karan Malik."
+                "I was made by some smart developers"
             ]
         },
         {
@@ -232,27 +235,14 @@
             ]
         },
         {
-            "tag": "karan",
-            "patterns": [
-                "who is he",
-                "who is that",
-                "who is karan",
-                "karan malik"
-            ],
-            "responses": [
-                "Head over to his any of his social profiles to find out! Linkedin: www.linkedin.com/in/karan-malik-3a39191a7 Github: https://github.com/Karan-Malik"
-            ]
-        },
-        {
             "tag": "contact",
             "patterns": [
                 "contact developer",
-                "contact karan",
                 "contact programmer",
                 "contact creator"
             ],
             "responses": [
-                "You can contact my creator at his Linkedin profile : www.linkedin.com/in/karan-malik-3a39191a7"
+                "You can contact my creator at his Linkedin profile : www.linkedin.com"
             ]
         },
         {
@@ -306,7 +296,7 @@
                 "who motivates you"
             ],
             "responses": [
-                "Personally, I find Karan very inspiring. I might not be very fair though.."
+                "Personally, I might not be very fair though.."
             ]
         },
         {

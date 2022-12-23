@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+
+	<title>chatbot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+</head>
+<body>
+	<h1>ChatBot</h1>
+	
+    <div style="width: 100%;">
+    <div style="max-width: 28em; width: 50%; height: 100px; float: left;">
+        <div id="encodingTypeSelect">
+        <h4 id="wav">Waveform Audio (.wav)</h4>
+        <!-- <option value="mp3">MP3 (MPEG-1 Audio Layer III) (.mp3)</option>
+        <option value="ogg">Ogg Vorbis (.ogg)</option> -->
+        </div>
+        <div id="controls" name = 'control_audio'>
+            <button id="recordButton">Record</button>
+            <button id="stopButton" disabled>Stop</button>
+        </div>
+        <div id="formats"></div>
+       
+    </div>
+    <div style="max-width: 28em; margin-left: 50%; height: 100px;">
+        <div id = "output">
+            <h3 id="reply-msg"></h3>
+        </div>
+        
+    </div>
+</div>
+<br/>
+<br/>
+    <div style = "max-width: 28em;" type="hidden">
+
+        <pre>Recordings</pre>
+        
+        <div id="recordingsList" name="record"></div>
+    </div>
+
+       
+	<!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+	<script src="{{url_for('static', filename='js/WebAudioRecorder.min.js')}}"></script>
+	<script src="{{url_for('static', filename='js/app.js')}}"></script>
+    <!-- <script src="{{url_for('static', filename='js/audio_to_text.js')}}"></script> -->
+</body>
+</html>

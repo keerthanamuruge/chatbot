@@ -214,6 +214,7 @@ tensorboard-data-server==0.6.1
 tensorboard-plugin-wit==1.8.1
 tensorflow==2.11.0
 tensorflow-estimator==2.11.0
+tensorflow-io==0.28.0
 tensorflow-io-gcs-filesystem==0.28.0
 termcolor==2.1.1
 terminado==0.17.1
@@ -252,3 +253,4 @@ zope.event==4.4
 zope.interface==4.7.1
 zope.schema==4.9.3
 zope.sqlalchemy==1.2
+flask
