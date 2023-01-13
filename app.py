@@ -21,24 +21,24 @@ def index():
 
     response = {}
 
-    file_path = '/home/softsuave/Downloads/' + request.get_json()['file_name']
-    path = Path(file_path)
-    while not path.is_file():
-        pass
+    # file_path = '/home/softsuave/Downloads/' + request.get_json()['file_name']
+    # path = Path(file_path)
+    # while not path.is_file():
+    #     pass
 
-    with open(file_path, 'rb') as file:
-        if file:
-            recognizer = sr.Recognizer()
-            audioFile = sr.AudioFile(file)
-            with audioFile as source:
-                data = recognizer.record(source)
-            try:
-                transcript = recognizer.recognize_google(data, key=None)
-                logging.debug(f'Transcript message: {transcript}')
-                response['message'] = main.chatbot_text_transformation(transcript)
+    # with open(file_path, 'rb') as file:
+    #     if file:
+    recognizer = sr.Recognizer()
+    audioFile = sr.AudioFile(request.files['audio-file'])
+    with audioFile as source:
+        data = recognizer.record(source)
+    try:
+        transcript = recognizer.recognize_google(data, key=None)
+        logging.debug(f'Transcript message: {transcript}')
+        response['message'] = main.chatbot_text_transformation(transcript)
 
-            except:
-                response['message'] = transcript = "Not able to hear your voice"
+    except:
+        response['message'] = transcript = "Not able to hear your voice"
     # logging.debug(request.files['file'].filename)
     # file = request.data
     # with open(os.path.abspath(f'backend/audios/{file}'), 'rb') as f:

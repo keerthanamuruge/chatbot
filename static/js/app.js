@@ -83,23 +83,6 @@ function startRecording() {
 			createDownloadLink(blob,recorder.encoding);
 			
 			encodingTypeSelect.disabled = false;
-			const downloadLink = document.getElementById("download-file");
-			filename = downloadLink.download.replace(/:/g, "_");
-			fetch("/audio_txt", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify({
-					"file_name": filename
-				})
-				})
-				.then((response) => response.json())
-  				.then((data) => 
-
-				document.getElementById('reply-msg').innerHTML = data['message']
-
-				);
 		}
 
 		recorder.setOptions({
@@ -147,60 +130,19 @@ function stopRecording() {
 function createDownloadLink(blob,encoding) {
 
 	var url = URL.createObjectURL(blob);
-	var au = document.createElement('audio');
-	var li = document.createElement('li');
-	var link = document.createElement('a');
-	link.id = "download-file";
 
-	//add controls to the <audio> element
-	au.controls = true;
-	au.src = url;
+	const formData = new FormData();
+  	formData.append('audio-file', blob);
+	fetch("/audio_txt", {
+		method: "POST",
+		body: formData
+		})
+		.then((response) => response.json())
+		  .then((data) => 
 
+		document.getElementById('reply-msg').innerHTML = data['message']
 
-	link.href = url;
-	link.download = new Date().toISOString() + '.'+encoding;
-	link.innerHTML = link.download;
-
-	// blob contnt
-	// const formData = new FormData();
-	// console.log(url)
-  	// formData.append('audio-file', url);
-	// fetch("/blob_audio_txt", {
-	// 	method: "POST",
-	// 	headers: {
-	// 		"Content-Type": "application/json"
-	// 	},
-	// 	body: formData
-	// 	})
-	// 	.then((response) => response.json())
-	// 	  .then((data) => 
-
-	// 	document.getElementById('reply-msg').innerHTML = data['message']
-
-	// 	);
-
-
-	function click_download_link() {
-		return new Promise(resolve => {
-			console.log(link)
-			link.click()
-		});
-	  }
-	
-	async function downloadcall() {
-		console.log('calling');
-		const result = await click_download_link();
-		console.log(result);
-		// expected output: "resolved"
-	  }
-	downloadcall()
-
-	
-	//add the new audio and a elements to the li element
-	li.appendChild(au);
-	li.appendChild(link);
-	//add the li element to the ordered list
-	recordingsList.appendChild(li);
+		);
 }
 
 
