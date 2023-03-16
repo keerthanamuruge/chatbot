@@ -14,6 +14,7 @@ var audioContext; //new audio context to help us record
 var encodingTypeSelect = document.getElementById("encodingTypeSelect");
 var recordButton = document.getElementById("recordButton");
 var stopButton = document.getElementById("stopButton");
+var micIcon = document.getElementById("micIcon")
 
 
 //add events to those 2 buttons
@@ -21,6 +22,7 @@ recordButton.addEventListener("click", startRecording);
 stopButton.addEventListener("click", stopRecording);
 
 function startRecording() {
+	micIcon.style.display = 'block';
 	console.log("startRecording() called");
 
 	/*
@@ -109,6 +111,8 @@ function startRecording() {
 }
 
 function stopRecording() {
+	micIcon.style.display = 'none';
+
 	var div = document.getElementById('recordingsList');
 	console.log("stopRecording() called");
 	

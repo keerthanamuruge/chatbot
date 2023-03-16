@@ -110,3 +110,8 @@ html {
     font-size: 180%;
     font-weight: bold;
   }
+  #micIcon{
+    display: none;
+    width: 27px;
+    height: 40px;
+  }
