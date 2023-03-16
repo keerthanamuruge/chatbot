@@ -1,52 +1,62 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-	<title>chatbot</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <title>chatbot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 </head>
+
 <body>
-	<h1>ChatBot</h1>
-	
-    <div style="width: 100%;">
-    <div style="max-width: 28em; width: 50%; height: 100px; float: left;">
-        <div id="encodingTypeSelect">
-        <h4 id="wav">Waveform Audio (.wav)</h4>
-        <!-- <option value="mp3">MP3 (MPEG-1 Audio Layer III) (.mp3)</option>
-        <option value="ogg">Ogg Vorbis (.ogg)</option> -->
+    <div class="container">
+        <div class="row header">
+            <div class="col-12">
+                <h1 class="text-center">ChatBot</h1>
+            </div>
         </div>
-        
-        <div id="controls" name = 'control_audio'>
-            <button id="recordButton">Record</button>
-            <button id="stopButton" disabled>Stop</button>
-              <span style="color: brown; "><svg xmlns="http://www.w3.org/2000/svg" id="micIcon" width="16" height="16" fill="currentColor" class="bi bi-mic-fill" viewBox="0 0 16 16">
-                <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
-                <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
-              </svg></span>
+        <div class="row">
+            <div class="col-12">
+                <div class="d-grid gap-2 col-1 mx-auto" id="encodingTypeSelect">
+                    <button class="btn-circle btn-center mt-4" onclick="triggerRecording()"><svg id="micIcon1" xmlns="http://www.w3.org/2000/svg"  width="16" height="16"
+                        fill="currentColor" class="bi bi-mic-fill" viewBox="0 0 16 16">
+                        <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z" />
+                        <path
+                            d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" />
+                    </svg><svg id="micIcon2"  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mic-mute-fill" viewBox="0 0 16 16">
+                        <path d="M13 8c0 .564-.094 1.107-.266 1.613l-.814-.814A4.02 4.02 0 0 0 12 8V7a.5.5 0 0 1 1 0v1zm-5 4c.818 0 1.578-.245 2.212-.667l.718.719a4.973 4.973 0 0 1-2.43.923V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 1 0v1a4 4 0 0 0 4 4zm3-9v4.879L5.158 2.037A3.001 3.001 0 0 1 11 3z"/>
+                        <path d="M9.486 10.607 5 6.12V8a3 3 0 0 0 4.486 2.607zm-7.84-9.253 12 12 .708-.708-12-12-.708.708z"/>
+                      </svg>
+                </button>
+                </div>
+            </div>
         </div>
-        <div id="formats"></div>
-       
-    </div>
-    <div style="max-width: 28em; margin-left: 50%; height: 100px;">
-        <div id = "output">
-            <h3 id="reply-msg"></h3>
+        <div class="row">
+            <div class="d-grid gap-2 col-8 mx-auto">
+                <div id="output">
+                    <h3>ChatBot: </h3><h5 id="reply-msg"></h5>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div style="max-width: 28em;" type="hidden">
+            </div>
         </div>
-        
-    </div>
-</div>
-<br/>
-<br/>
-    <div style = "max-width: 28em;" type="hidden">
     </div>
 
-       
-	<!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
-	<script src="{{url_for('static', filename='js/WebAudioRecorder.min.js')}}"></script>
-	<script src="{{url_for('static', filename='js/app.js')}}"></script>
+    
+
+
+    <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+    <script src="{{url_for('static', filename='js/WebAudioRecorder.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/app.js')}}"></script>
     <!-- <script src="{{url_for('static', filename='js/audio_to_text.js')}}"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

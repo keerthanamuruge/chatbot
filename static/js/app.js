@@ -1,5 +1,6 @@
 //webkitURL is deprecated but nevertheless
 URL = window.URL || window.webkitURL;
+var isRecord = false;
 
 var gumStream; 						//stream from getUserMedia()
 var recorder; 						//WebAudioRecorder object
@@ -12,17 +13,29 @@ var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext; //new audio context to help us record
 
 var encodingTypeSelect = document.getElementById("encodingTypeSelect");
-var recordButton = document.getElementById("recordButton");
-var stopButton = document.getElementById("stopButton");
-var micIcon = document.getElementById("micIcon")
+var micIcon = document.getElementById("micIcon1")
+var micdisableIcon =document.getElementById("micIcon2")
 
 
-//add events to those 2 buttons
-recordButton.addEventListener("click", startRecording);
-stopButton.addEventListener("click", stopRecording);
+
+
+function triggerRecording(){
+	isRecord = !isRecord
+	console.log('Happy birthday to me', isRecord)
+	if (isRecord){
+		startRecording()
+	}
+	else{
+		stopRecording()
+	}
+}
 
 function startRecording() {
-	micIcon.style.display = 'block';
+	micIcon.style.display = 'none';
+	micdisableIcon.style.display = 'block'
+	document.getElementById('reply-msg').innerHTML = 'Listening.....';
+		document.getElementById('output').style.display = 'block';
+	
 	console.log("startRecording() called");
 
 	/*
@@ -100,35 +113,27 @@ function startRecording() {
 
 	}).catch(function(err) {
 	  	//enable the record button if getUSerMedia() fails
-    	recordButton.disabled = false;
-    	stopButton.disabled = true;
 
 	});
 
 	//disable the record button
-    recordButton.disabled = true;
-    stopButton.disabled = false;
 }
 
 function stopRecording() {
-	micIcon.style.display = 'none';
+	micdisableIcon.style.display = 'none'
+	micIcon.style.display = 'block';
 
-	var div = document.getElementById('recordingsList');
 	console.log("stopRecording() called");
 	
 	//stop microphone access
 	gumStream.getAudioTracks()[0].stop();
 
 	//disable the stop button
-	stopButton.disabled = true;
-	recordButton.disabled = false;
 	
 	//tell the recorder to finish the recording (stop recording + encode the recorded audio)
 	recorder.finishRecording();
 	
-	while(div.firstChild){
-   	 	div.removeChild(div.firstChild);
-	}
+	
 }
 
 function createDownloadLink(blob,encoding) {
@@ -142,9 +147,10 @@ function createDownloadLink(blob,encoding) {
 		body: formData
 		})
 		.then((response) => response.json())
-		  .then((data) => 
+		  .then((data) => {
 
-		document.getElementById('reply-msg').innerHTML = data['message']
+		document.getElementById('reply-msg').innerHTML = data['message'];
+		document.getElementById('output').style.display = 'block';}
 
 		);
 }
